@@ -1,0 +1,6 @@
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
+default namespace = "http://github.com/talkasab/assayer_process"
+
+el_uuid = element uuid { at_uuid }
+at_uuid = attribute uuid { uuidPattern }
+uuidPattern = xsd:string { pattern="[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}" }

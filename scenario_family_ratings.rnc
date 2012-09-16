@@ -1,0 +1,34 @@
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
+default namespace = "http://github.com/talkasab/assayer_process"
+include "uuid_attribute.rnc"
+
+start = el_scenario_family_ratings
+
+## Rater data for a set of scenarios
+el_scenario_family_ratings = element scenario_family_ratings {
+    at_uuid,
+    attribute scenario_family_uuid { uuidPattern },
+    el_scenario_ratings+
+}
+
+## For a given scenario, the set of rater data
+el_scenario_ratings = element scenario_ratings {
+    attribute scenario_uuid { uuidPattern },
+    el_rater_data+
+}
+
+## For a given rater within scenario, all the ratings
+el_rater_data = element rater_data {
+    attribute rater_uuid { uuidPattern },
+    el_item_rating+
+}
+
+## The actual rating of a scenario
+el_item_rating = element item_rating {
+    attribute item_id { xsd:NMTOKEN },
+    ## 0 = Not relevant
+    ## 1 = Unlikely relevant
+    ## 2 = Likely relevant
+    ## 3 = Certainly relevant
+    attribute rating { xsd:nonNegativeInteger { maxInclusive="3" } }
+}

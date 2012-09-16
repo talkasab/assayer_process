@@ -1,0 +1,24 @@
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
+default namespace = "http://github.com/talkasab/assayer_process"
+include "uuid_attribute.rnc"
+
+start = el_search_strategy_score
+
+normalizedRating = xsd:double { minInclusive="0.0" maxInclusive="1.0" }
+
+## Score of the effectiveness of a search strategy against a scenario compared to scenario ratings
+el_search_strategy_score = element search_strategy_score {
+    ## Search strategy identifier
+    attribute search_strategy_uuid { uuidPattern },    
+    ## Scenario family identifier
+    attribute scenario_family_uuid { uuidPattern },
+    ## Scenario family ratings set identifier
+    attribute scenario_family_ratings_uuid { uuidPattern },
+    ## Overall rating, from 0 to 1 of how effective the search strategy was at including
+    ## relevant items and excluding irrelevant items
+    element overall_rating { normalizedRating },
+    ## Rating from 0 to 1 of how effective the strategy was at including relative items
+    element inclusion_rating { normalizedRating },
+    ## Rating from 0 to 1 of how effective the strategy was at excluding irrelevant items
+    element exclusion_rating { normalizedRating }
+}

@@ -1,0 +1,24 @@
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
+default namespace = "http://github.com/talkasab/assayer_process"
+include "uuid_attribute.rnc"
+
+start = el_scenario_family_results
+
+## Result report of running a search strategy against a scenario family
+el_scenario_family_results = element search_strategy_scenario_family_results {
+    attribute search_strategy_uuid { uuidPattern },    
+    attribute scenario_family_uuid { uuidPattern },
+    el_scenario_results+
+}
+
+## Result set of running the search strategy against a given scenario
+el_scenario_results = element scenario_results {
+    attribute scenario_uuid { uuidPattern },
+    el_item_result+
+}
+
+## Whether any given medical record item is included by the search strategy
+el_item_result = element item_result {
+    attribute item_id { xsd:NMTOKEN },
+    attribute included { xsd:boolean }
+}

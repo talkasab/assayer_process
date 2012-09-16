@@ -1,0 +1,19 @@
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
+default namespace = "http://github.com/talkasab/assayer_process"
+include "uuid_attribute.rnc"
+
+start = el_scenario_family
+
+## A group of scenarios to be tested against together
+el_scenario_family = element scenario_family {
+    at_uuid,
+    element label { string },
+    element description { text }?,
+    el_scenario_reference+
+}
+
+## Reference to where individual scenario definitions can be found
+el_scenario_reference = element scenario_reference {
+    attribute scenario_uuid { uuidPattern } &
+    ( attribute filename { string } | attribute url { xsd:anyURI } )
+}

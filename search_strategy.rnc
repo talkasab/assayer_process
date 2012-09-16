@@ -1,0 +1,13 @@
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
+default namespace = "http://github.com/talkasab/assayer_process"
+
+include "uuid_attribute.rnc"
+
+start = el_search_strategy
+
+el_search_strategy = element search_strategy {
+    at_uuid,
+    element label { string },
+    element description { text },
+    element code { text }
+}

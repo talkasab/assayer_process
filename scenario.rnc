@@ -1,10 +1,15 @@
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
+default namespace = "http://github.com/talkasab/assayer_process"
+include "uuid_attribute.rnc"
+
+start = el_scenario
+
 ## Define a clinical scenario.
 ## Consists of a patient who has an index exam, and many medical record items which
 ## may be relevant.
-start = el_scenario
 el_scenario = element clinical_scenario {
-	attribute uuid { text },
-	el_patient,
+    at_uuid,
+    el_patient,
 	el_index_exam,
 	el_medical_record_item+
 }
@@ -17,7 +22,7 @@ el_patient = element patient {
 
 ## The exam to which other medical record items must be relevant
 el_index_exam = element index_exam {
-	attribute exam_type { text },
+	attribute exam_type { string },
 	element clinical_history { text },
 	element exam_comment { text }?,
 	element report { text }
@@ -25,7 +30,7 @@ el_index_exam = element index_exam {
 
 ## Other medical record items that may be relevant to the index exam
 el_medical_record_item = element medical_record_item {
-	attribute id { text },
+	attribute id { xsd:NMTOKEN },
 	## How many days from the index exam this item occurred.
 	## Negative numbers are before the index exam
 	attribute days_from_index { xsd:integer },
@@ -35,7 +40,7 @@ el_medical_record_item = element medical_record_item {
 	## PAT = pathology report
 	## NTE = clinical note
 	## NDO = endoscopy report
-	attribute type { "OPN" | "MIC" | "PAT" | "NTE" | "NDO" },
+	attribute type { string "OPN" | string "MIC" | string "PAT" | string "NTE" | string "NDO" },
 	element description { text },
 	element report { text }
 }
