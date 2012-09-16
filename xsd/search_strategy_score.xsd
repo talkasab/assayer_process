@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://github.com/talkasab/assayer_process" xmlns:a="http://github.com/talkasab/assayer_process">
+  <xs:include schemaLocation="uuid_attribute.xsd"/>
+  <xs:simpleType name="normalizedRating">
+    <xs:restriction base="xs:double">
+      <xs:minInclusive value="0.0"/>
+      <xs:maxInclusive value="1.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="search_strategy_score">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="a:overall_rating"/>
+        <xs:element ref="a:inclusion_rating"/>
+        <xs:element ref="a:exclusion_rating"/>
+      </xs:sequence>
+      <xs:attribute name="search_strategy_uuid" use="required" type="a:uuidPattern">
+        <xs:annotation>
+          <xs:documentation>Search strategy identifier</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="scenario_family_uuid" use="required" type="a:uuidPattern">
+        <xs:annotation>
+          <xs:documentation>Scenario family identifier</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="scenario_family_ratings_uuid" use="required" type="a:uuidPattern">
+        <xs:annotation>
+          <xs:documentation>Scenario family ratings set identifier</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="overall_rating" type="a:normalizedRating">
+    <xs:annotation>
+      <xs:documentation>Overall rating, from 0 to 1 of how effective the search strategy was at including
+relevant items and excluding irrelevant items</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="inclusion_rating" type="a:normalizedRating">
+    <xs:annotation>
+      <xs:documentation>Rating from 0 to 1 of how effective the strategy was at including relative items</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="exclusion_rating" type="a:normalizedRating">
+    <xs:annotation>
+      <xs:documentation>Rating from 0 to 1 of how effective the strategy was at excluding irrelevant items</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

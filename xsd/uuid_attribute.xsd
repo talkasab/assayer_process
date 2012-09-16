@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://github.com/talkasab/assayer_process" xmlns:a="http://github.com/talkasab/assayer_process">
+  <xs:element name="uuid">
+    <xs:complexType>
+      <xs:attributeGroup ref="a:at_uuid"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="at_uuid">
+    <xs:attribute name="uuid" use="required" type="a:uuidPattern"/>
+  </xs:attributeGroup>
+  <xs:simpleType name="uuidPattern">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

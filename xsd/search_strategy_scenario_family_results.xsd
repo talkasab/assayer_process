@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://github.com/talkasab/assayer_process" xmlns:a="http://github.com/talkasab/assayer_process">
+  <xs:include schemaLocation="uuid_attribute.xsd"/>
+  <xs:element name="search_strategy_scenario_family_results">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="a:scenario_results"/>
+      </xs:sequence>
+      <xs:attribute name="search_strategy_uuid" use="required" type="a:uuidPattern"/>
+      <xs:attribute name="scenario_family_uuid" use="required" type="a:uuidPattern"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="scenario_results">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="a:item_result"/>
+      </xs:sequence>
+      <xs:attribute name="scenario_uuid" use="required" type="a:uuidPattern"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="item_result">
+    <xs:complexType>
+      <xs:attribute name="item_id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="included" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

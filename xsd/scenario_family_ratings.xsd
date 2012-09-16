@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://github.com/talkasab/assayer_process" xmlns:a="http://github.com/talkasab/assayer_process">
+  <xs:include schemaLocation="uuid_attribute.xsd"/>
+  <xs:element name="scenario_family_ratings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="a:scenario_ratings"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="a:at_uuid"/>
+      <xs:attribute name="scenario_family_uuid" use="required" type="a:uuidPattern"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="scenario_ratings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="a:rater_data"/>
+      </xs:sequence>
+      <xs:attribute name="scenario_uuid" use="required" type="a:uuidPattern"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rater_data">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="a:item_rating"/>
+      </xs:sequence>
+      <xs:attribute name="rater_uuid" use="required" type="a:uuidPattern"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="item_rating">
+    <xs:complexType>
+      <xs:attribute name="item_id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="rating" use="required">
+        <xs:annotation>
+          <xs:documentation>0 = Not relevant
+1 = Unlikely relevant
+2 = Likely relevant
+3 = Certainly relevant</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:nonNegativeInteger">
+            <xs:maxInclusive value="3"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

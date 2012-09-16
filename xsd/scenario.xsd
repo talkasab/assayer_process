@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://github.com/talkasab/assayer_process" xmlns:a="http://github.com/talkasab/assayer_process">
+  <xs:include schemaLocation="uuid_attribute.xsd"/>
+  <xs:element name="clinical_scenario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="a:patient"/>
+        <xs:element ref="a:index_exam"/>
+        <xs:element maxOccurs="unbounded" ref="a:medical_record_item"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="a:at_uuid"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="patient">
+    <xs:complexType>
+      <xs:attribute name="age" use="required" type="xs:nonNegativeInteger"/>
+      <xs:attribute name="sex" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="M"/>
+            <xs:enumeration value="F"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="index_exam">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="a:clinical_history"/>
+        <xs:element minOccurs="0" ref="a:exam_comment"/>
+        <xs:element ref="a:report"/>
+      </xs:sequence>
+      <xs:attribute name="exam_type" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="clinical_history" type="xs:string"/>
+  <xs:element name="exam_comment" type="xs:string"/>
+  <xs:element name="report" type="xs:string"/>
+  <xs:element name="medical_record_item">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="a:description"/>
+        <xs:element ref="a:report"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:NMTOKEN"/>
+      <xs:attribute name="days_from_index" use="required" type="xs:integer">
+        <xs:annotation>
+          <xs:documentation>How many days from the index exam this item occurred.
+Negative numbers are before the index exam</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="type" use="required">
+        <xs:annotation>
+          <xs:documentation>What kind of item
+OPN = operative note
+MIC = microbiology report
+PAT = pathology report
+NTE = clinical note
+NDO = endoscopy report</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="OPN"/>
+            <xs:enumeration value="MIC"/>
+            <xs:enumeration value="PAT"/>
+            <xs:enumeration value="NTE"/>
+            <xs:enumeration value="NDO"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="description" type="xs:string"/>
+</xs:schema>
